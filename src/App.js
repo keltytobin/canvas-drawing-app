@@ -19,6 +19,7 @@ function draw(ctx, location){
 function App(){
   const [locations, setLocations] = React.useState([]);
   const canvasRef = React.useRef(null);
+  const undoBuffer = [];
 
   React.useEffect(()=>{
     const canvas = canvasRef.current;
@@ -36,12 +37,28 @@ function App(){
     setLocations([]);
   }  
 
+  function handleUndo (){
+    //undoBuffer.push(locations.slice);
+    setLocations(locations.slice(0, -1));
+
+  }
+
+  function handleRedo (){
+    console.log(undoBuffer);
+  }
+
   console.log(locations);
 
   return(
     <>
       <button onClick={handleClear}>
         Clear
+      </button>
+      <button onClick={handleUndo}>
+        Undo
+      </button>
+      <button onClick={handleRedo}>
+        Redo
       </button>
       <canvas
         ref = {canvasRef}
